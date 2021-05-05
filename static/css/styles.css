@@ -37,6 +37,10 @@
     font-size: 14px;
     font-weight: 400;
     text-transform: uppercase;
+    -moz-transition: all 0.2s cubic-bezier(0.8, 0.2, 0.2, 0.9);
+    -o-transition: all 0.2s cubic-bezier(0.8, 0.2, 0.2, 0.9);
+    -webkit-transition: all 0.2s cubic-bezier(0.8, 0.2, 0.2, 0.9);
+    transition: all 0.2s cubic-bezier(0.8, 0.2, 0.2, 0.9);
 }
 
 #hero .btn-get-started {

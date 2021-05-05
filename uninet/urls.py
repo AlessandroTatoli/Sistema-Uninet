@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from modelo.views import index, home
+from modelo.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
-    path('home/', home, name="home"),
+    path('home/', home, name='home'),
+    path('net/<int:ci>', flujograma, name='flujograma'),
 ]

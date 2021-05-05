@@ -1,0 +1,125 @@
+<style>
+    .materia {
+        color: #aeaeae;
+        font-size: 14px;
+        font-weight: 400;
+        height: 100px;
+    }
+
+    .materia_head {
+        height: 20px !important;
+    }
+
+    td {
+        vertical-align: middle !important;
+    }
+
+    .materia_vista {
+        background-color: green;
+        color: white;
+    }
+
+    .materia_porver:hover {
+        color: black;
+        background-color: white;
+        -moz-transition: all 0.3s cubic-bezier(0.8, 0.2, 0.2, 0.9);
+        -o-transition: all 0.3s cubic-bezier(0.8, 0.2, 0.2, 0.9);
+        -webkit-transition: all 0.3s cubic-bezier(0.8, 0.2, 0.2, 0.9);
+        transition: all 0.3s cubic-bezier(0.8, 0.2, 0.2, 0.9);
+        cursor: pointer;
+    }
+
+    .trantition_materia_selected {
+        transform: scale(1.5, 1.5);
+        -moz-transition: all 0.2s cubic-bezier(0.8, 0.2, 0.2, 0.9);
+        -o-transition: all 0.2s cubic-bezier(0.8, 0.2, 0.2, 0.9);
+        -webkit-transition: all 0.2s cubic-bezier(0.8, 0.2, 0.2, 0.9);
+        transition: all 0.2s cubic-bezier(0.8, 0.2, 0.2, 0.9);
+    }
+
+    .materia_selected {
+        color: black;
+        background-color: white;
+        cursor: pointer;
+    }
+
+
+</style>
+<div class="table-responsive">
+    <table class="table table-bordered" style="table-layout: fixed;">
+        <thead>
+        <tr class="materia materia_head">
+            <th scope="col">I</th>
+            <th scope="col">II</th>
+            <th scope="col">III</th>
+            <th scope="col">IV</th>
+            <th scope="col">V</th>
+            <th scope="col">VI</th>
+            <th scope="col">VII</th>
+            <th scope="col">VIII</th>
+            <th scope="col">IX</th>
+            <th scope="col">X</th>
+            <th scope="col">XI</th>
+            <th scope="col">XII</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in flujograma %}
+            <tr class="materia">
+                {% for materia, attr in row.items %}
+                    {% if attr.0 == 1 %}
+                        <td id="{{ attr.1 }}" class="materia_vista">
+                            {{ materia }}
+                        </td>
+                    {% else %}
+                        <td id="{{ attr.1 }}" class="materia_porver">
+                            {{ materia }}
+                        </td>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="container-fluid d-flex justify-content-center">
+    <p style="font-size: 14px; color: white; width: 200px" id="number_materias">
+        0/6 materias seleccionadas
+    </p>
+</div>
+
+
+<script>
+
+    var materias = 0;
+
+    $('.materia_porver').on('click', function () {
+        if ($('#' + $(this).attr('id')).hasClass('materia_selected')) {
+            if (materias > 0) {
+                $('#number_materias').addClass('trantition_materia_selected');
+                setTimeout(function () {
+                    $('#number_materias').removeClass('trantition_materia_selected');
+                }, 400);
+                $('#' + $(this).attr('id')).removeClass('materia_selected');
+
+                materias--;
+                $('#number_materias').text(materias + '/6 materias seleccionadas')
+            }
+        } else {
+            if (materias < 6) {
+                $('#number_materias').addClass('trantition_materia_selected');
+                setTimeout(function () {
+                    $('#number_materias').removeClass('trantition_materia_selected');
+                }, 400);
+                $('#' + $(this).attr('id')).addClass('materia_selected');
+                materias++;
+                $('#number_materias').text(materias + '/6 materias seleccionadas');
+            } else {
+                swal.fire('Alerta', 'Ya ha seleccionado el numero maximo de materias', 'error');
+            }
+        }
+
+    });
+
+</script>

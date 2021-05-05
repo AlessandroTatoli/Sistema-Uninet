@@ -1,12 +1,19 @@
 {% load static %}
-<section id="hero">
-    <div class="hero-container">
-        <a class="hero-logo" data-aos="zoom-in"><img src="{% static 'img/hero-logo.png' %}" alt=""></a>
-        <h1 data-aos="zoom-in">Bienvenido a Uninet</h1>
-        <h2 data-aos="fade-up">Recomendación de asignaturas para estudiantes de la unimet</h2>
-        <a data-aos="fade-up" id="start" class="btn-get-started scrollto">Comenzar</a>
-    </div>
-</section>
+<style>
+    .arrows::-webkit-outer-spin-button,
+    .arrows::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+        -moz-appearance: textfield;
+    }
+
+
+</style>
+
+<a class="hero-logo" data-aos="zoom-in"><img width="40%" src="{% static 'img/logo.png' %}" alt=""></a>
+<h1 data-aos="zoom-in">Bienvenido a Uninet</h1>
+<h2 data-aos="fade-up">Recomendación de asignaturas para estudiantes de la unimet</h2>
+<a data-aos="fade-up" id="start" class="btn-get-started scrollto">Comenzar</a>
 
 <script>
 
@@ -14,10 +21,23 @@
         swal.fire({
             title: 'Ingrese su número de cédula',
             icon: 'info',
-            input: 'text',
-            confirmButtonText: 'Continuar'
+            input: 'number',
+            confirmButtonText: 'Continuar',
+            customClass: {
+                input: 'arrows'
+            },
+            inputAttributes: {
+                min: '0'
+            },
+            inputValidator: (value) => {
+                if (!value) {
+                    return 'Escribe una cédula'
+                }
+            }
         }).then(function (data) {
-
+            if (data.isConfirmed) {
+                $("#body-content").load('net/' + data.value)
+            }
         })
     });
 
