@@ -13,6 +13,9 @@
 
 </head>
 <body>
+
+{% include 'loader.html' %}
+
 <section id="hero">
     <div class="hero-container">
         <div id="body-content"></div>
@@ -32,9 +35,24 @@
             once: true
         });
 
-        $("#body-content").load('{% url "home" %}')
+        loading();
+        $("#body-content").load('{% url "home" %}', function () {
+            loading(false);
+        });
 
     });
+
+    function loading(set = true) {
+        if (set) {
+            $('#loader').addClass('loading-container');
+            $('#hero').addClass('blurry-hero');
+        } else {
+            $('#loader').removeClass('loading-container');
+            $('#hero').removeClass('blurry-hero');
+        }
+    }
+
+
 </script>
 
 </body>

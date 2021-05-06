@@ -36,7 +36,10 @@
             }
         }).then(function (data) {
             if (data.isConfirmed) {
-                $("#body-content").load('net/' + data.value)
+                loading();
+                $("#body-content").load('net/' + data.value, function () {
+                    loading(false);
+                });
             }
         })
     });
