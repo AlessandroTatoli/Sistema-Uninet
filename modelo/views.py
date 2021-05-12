@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+import json
 
 
 def index(request):
@@ -10,7 +11,11 @@ def home(request):
     return render(request, "home.html")
 
 
-def flujograma(request, ci=None):
+def flujograma(request, ci):
+    # se obtiene el flujograma de las materias del estudiante
+    file = open('./static/utils/flujograma_est.json', )
+    flujograma = json.load(file)
+
     flujogramaDic = [
         {'Matematica General': [1, 'BTTTTT1'], 'Matemática Básica': [1, 'BTTTTT2'], 'Matemáticas I': [1, 'BTTTTT3'],
          'Matemáticas II': [0, 'BTTTTT4'], 'Matemáticas III': [0, 'BTTTTT5'], 'Matemáticas IV': [0, 'BTTTTT6'],
