@@ -13,8 +13,10 @@ def home(request):
 
 def flujograma(request, ci):
     # se obtiene el flujograma de las materias del estudiante
-    file = open('./static/utils/flujograma_est.json', )
+    file = open('./static/utils/flujograma_carreras.json', )
     flujograma = json.load(file)
+
+
 
     flujogramaDic = [
         {'Matematica General': [1, 'BTTTTT1'], 'Matemática Básica': [1, 'BTTTTT2'], 'Matemáticas I': [1, 'BTTTTT3'],
