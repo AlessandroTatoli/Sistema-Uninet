@@ -21,5 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index),
     path('home/', home, name='home'),
-    path('net/<int:ci>', flujograma, name='flujograma'),
+    path('net/<int:ci>', render_flujograma, name='flujograma'),
 ]

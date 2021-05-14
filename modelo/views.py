@@ -11,12 +11,55 @@ def home(request):
     return render(request, "home.html")
 
 
-def flujograma(request, ci):
+def render_flujograma(request, ci):
+    # se obtiene el historico del estudiante
+    with open('./static/utils/students_validation.json', "r", encoding='utf8') as fileH:
+        all_historicos = json.load(fileH)
+        try:
+            historico = all_historicos[str(ci)]
+        except:
+            return render(request, "home.html", {'error': 'No se ha encontrado el estudiante.'})
+        fileH.close()
+
     # se obtiene el flujograma de las materias del estudiante
-    file = open('./static/utils/flujograma_carreras.json', )
-    flujograma = json.load(file)
+    with open('./static/utils/flujograma_carreras.json', "r", encoding='utf8') as fileF:
+        all_flujogramas = json.load(fileF)
+        flujograma = all_flujogramas[historico["Plan de Estudios"]]
 
+        # asignar nombre a las materias del flujograma
+        with open('./static/utils/code_to_assign.json', "r", encoding='utf8') as fileN:
+            all_nombres = json.load(fileN)
+            for materia in flujograma.keys():
+                for codigo in all_nombres.keys():
+                    if 'FGE0000' in materia:
+                        flujograma[materia].append('FGE')
+                        break
 
+                    if materia == codigo:
+                        flujograma[materia].append(all_nombres[codigo])
+                        break
+            fileN.close()
+
+        # verificar materias que cursó el estudiante
+
+        for materiaF in flujograma.keys():
+            for trimestre in historico["Historico"]:
+                salto = False
+                for n, materiaH in enumerate(trimestre):
+                    if materiaH != 1903 and 'FGE0000' in materiaF and 'FGE0000' in materiaH:
+                        trimestre[n] = 1903
+                        flujograma[materiaF][0] = 1
+                        salto = True
+                        break
+
+                    if materiaH != 1903 and materiaF == materiaH.split('_')[0]:
+                        flujograma[materiaF][0] = 1
+                        salto = True
+                        break
+                if salto:
+                    break
+
+    fileF.close()
 
     flujogramaDic = [
         {'Matematica General': [1, 'BTTTTT1'], 'Matemática Básica': [1, 'BTTTTT2'], 'Matemáticas I': [1, 'BTTTTT3'],
@@ -50,4 +93,4 @@ def flujograma(request, ci):
          'Gerencia Proyectos TIC': [0, 'BTTTTT59'], 'Proyecto de Ingeniería': [0, 'BTTTTT60']}
     ]
 
-    return render(request, "flujograma.html", {'flujograma': flujogramaDic})
+    return render(request, "flujograma.html", {'flujograma': flujograma})

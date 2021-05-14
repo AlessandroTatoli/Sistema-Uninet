@@ -17,6 +17,14 @@
 
 <script>
 
+    {% if error %}
+        $(document).ready(function () {
+            swal.fire('{{ error }}', '', 'error');
+        });
+    {% endif %}
+
+
+
     $('#start').on('click', function () {
         swal.fire({
             title: 'Ingrese su número de cédula',

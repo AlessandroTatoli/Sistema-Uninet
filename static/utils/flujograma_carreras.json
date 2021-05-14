@@ -1,64 +1,184 @@
 {
-  "Ingenieria de Sistemas": {
-    "FBTMM00": [],
-    "FBTHU01": [],
-    "FBTCE03": [],
-    "FBTIE02": [],
-    "FBTIN04": [],
-    "FBTMM01": [],
-    "FBTHU02": [],
-    "FBTCE04": [],
-    "FBTIE03": [],
-    "FBTIN05": [],
-    "BPTMI01": [],
-    "FGE1": [],
-    "BPTPI07": [],
-    "BPTQI21": [],
-    "FBTSP03": [],
-    "BPTMI02": [],
-    "BPTMI30": [],
-    "FGE2": [],
-    "BPTQI22": [],
-    "BPTFI01": [],
-    "BPTMI03": [],
-    "FGE3": [],
-    "BPTSP05": [],
-    "FGE4": [],
-    "BPTFI02": [],
-    "BPTMI04": [],
-    "BPTMI31": [],
-    "BPTSP06": [],
-    "BPTEN12": [],
-    "BPTFI03": [],
-    "BPTMI11": [],
-    "FGE5": [],
-    "FPTSP04": [],
-    "BPTSP03": [],
-    "BPTFI04": [],
-    "BPTMI05": [],
-    "FPTSP17": [],
-    "FPTSP01": [],
-    "BPTSP04": [],
-    "FPTEN23": [],
-    "FBTIE01": [],
-    "FPTSP19": [],
-    "FPTSP07": [],
-    "FPTSP02": [],
-    "BPTMI20": [],
-    "FPTPI09": [],
-    "FPTSP21": [],
-    "FPTSP20": [],
-    "FPTMI21": [],
-    "FPTSP22": [],
-    "FPTSP11": [],
-    "FPTSP18": [],
-    "FPTSP23": [],
-    "FGE6": [],
-    "FGE7": [],
-    "FPTSP14": [],
-    "FPTSP15": [],
-    "FPTCS16": [],
-    "FPTSP25": [],
-    "FPTIS01": []
+  "INGENIERÍA DE SISTEMAS": {
+    "FBTMM00": [
+      0
+    ],
+    "FBTHU01": [
+      0
+    ],
+    "FBTCE03": [
+      0
+    ],
+    "FBTIE02": [
+      0
+    ],
+    "FBTIN04": [
+      0
+    ],
+    "FBTMM01": [
+      0
+    ],
+    "FBTHU02": [
+      0
+    ],
+    "FBTCE04": [
+      0
+    ],
+    "FBTIE03": [
+      0
+    ],
+    "FBTIN05": [
+      0
+    ],
+    "BPTMI01": [
+      0
+    ],
+    "FGE00001": [
+      0
+    ],
+    "BPTPI07": [
+      0
+    ],
+    "BPTQI21": [
+      0
+    ],
+    "FBTSP03": [
+      0
+    ],
+    "BPTMI02": [
+      0
+    ],
+    "BPTMI30": [
+      0
+    ],
+    "FGE00002": [
+      0
+    ],
+    "BPTQI22": [
+      0
+    ],
+    "BPTFI01": [
+      0
+    ],
+    "BPTMI03": [
+      0
+    ],
+    "FGE00003": [
+      0
+    ],
+    "BPTSP05": [
+      0
+    ],
+    "FGE00004": [
+      0
+    ],
+    "BPTFI02": [
+      0
+    ],
+    "BPTMI04": [
+      0
+    ],
+    "BPTMI31": [
+      0
+    ],
+    "BPTSP06": [
+      0
+    ],
+    "BPTEN12": [
+      0
+    ],
+    "BPTFI03": [
+      0
+    ],
+    "BPTMI11": [
+      0
+    ],
+    "FGE00005": [
+      0
+    ],
+    "FPTSP04": [
+      0
+    ],
+    "BPTSP03": [
+      0
+    ],
+    "BPTFI04": [
+      0
+    ],
+    "BPTMI05": [
+      0
+    ],
+    "FPTSP17": [
+      0
+    ],
+    "FPTSP01": [
+      0
+    ],
+    "BPTSP04": [
+      0
+    ],
+    "FPTEN23": [
+      0
+    ],
+    "FBTIE01": [
+      0
+    ],
+    "FPTSP19": [
+      0
+    ],
+    "FPTSP07": [
+      0
+    ],
+    "FPTSP02": [
+      0
+    ],
+    "BPTMI20": [
+      0
+    ],
+    "FPTPI09": [
+      0
+    ],
+    "FPTSP21": [
+      0
+    ],
+    "FPTSP20": [
+      0
+    ],
+    "FPTMI21": [
+      0
+    ],
+    "FPTSP22": [
+      0
+    ],
+    "FPTSP11": [
+      0
+    ],
+    "FPTSP18": [
+      0
+    ],
+    "FPTSP23": [
+      0
+    ],
+    "FGE00006": [
+      0
+    ],
+    "BPTDI01": [
+      0
+    ],
+    "FPTSP14": [
+      0
+    ],
+    "FPTSP15": [
+      0
+    ],
+    "FPTCS16": [
+      0
+    ],
+    "FPTSP25": [
+      0
+    ],
+    "FPTIS01": [
+      0
+    ]
   }
 }
