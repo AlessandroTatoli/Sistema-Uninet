@@ -1,9 +1,10 @@
 <style>
     .materia {
         color: #aeaeae;
-        font-size: 14px;
+        font-size: 12px;
         font-weight: 400;
         height: 100px;
+        overflow-wrap: break-word
     }
 
     .materia_head {
@@ -16,6 +17,11 @@
 
     .materia_vista {
         background-color: green;
+        color: white;
+    }
+
+    .materia_no_existe {
+        background-color: red;
         color: white;
     }
 
@@ -41,6 +47,16 @@
         color: black;
         background-color: white;
         cursor: pointer;
+    }
+
+    #number_materias {
+        font-size: 14px;
+        color: white;
+        width: 200px;
+        -moz-transition: all 0.2s cubic-bezier(0.8, 0.2, 0.2, 0.9);
+        -o-transition: all 0.2s cubic-bezier(0.8, 0.2, 0.2, 0.9);
+        -webkit-transition: all 0.2s cubic-bezier(0.8, 0.2, 0.2, 0.9);
+        transition: all 0.2s cubic-bezier(0.8, 0.2, 0.2, 0.9);
     }
 
 </style>
@@ -78,8 +94,8 @@
 </div>
 
 <div class="container-fluid d-flex justify-content-center">
-    <p style="font-size: 14px; color: white; width: 200px" id="number_materias">
-        0/6 materias seleccionadas
+    <p id="number_materias">
+        0/7 materias seleccionadas
     </p>
 </div>
 <script>
@@ -92,51 +108,63 @@
 
         flujograma = Object.entries(flujograma)
         var aux = 0;
+        var materias = 0;
+        var materias_selected = [];
 
         while (aux != 5) {
             for (var i = aux; i < 60; i += 5) {
                 var row = aux + 1
-                if (flujograma[i][1][0] == 1) {
-                    $('#row' + row).append('<td id="' + flujograma[i][0] + '" class="materia_vista">' + flujograma[i][1][1] + '</td>')
+
+                if (flujograma[i][1][1] == undefined) {
+                    $('#row' + row).append('<td class="materia_no_existe"> - </td>')
                 } else {
-                    $('#row' + row).append('<td id="' + flujograma[i][0] + '" class="materia_porver">' + flujograma[i][1][1] + '</td>')
+
+                    if (flujograma[i][1][0] == 1) {
+                        $('#row' + row).append('<td class="materia_vista">' + flujograma[i][1][1] + '</td>')
+                    } else {
+                        $('#row' + row).append('<td id="' + flujograma[i][0] + '" class="materia_porver">' + flujograma[i][1][1] + '</td>')
+                    }
                 }
             }
             aux++
         }
 
-    });
+        $('.materia_porver').on('click', function () {
+            if ($(this).hasClass('materia_selected')) {
+                if (materias > 0) {
 
+                    var index_mat = materias_selected.indexOf($(this).attr('id'));
+                    materias_selected.splice(index_mat, 1);
 
-    // cambiar
-    var materias = 0;
+                    $('#number_materias').addClass('trantition_materia_selected');
+                    setTimeout(function () {
+                        $('#number_materias').removeClass('trantition_materia_selected');
+                    }, 400);
+                    $('#' + $(this).attr('id')).removeClass('materia_selected');
 
-    $('.materia_porver').on('click', function () {
-        if ($('#' + $(this).attr('id')).hasClass('materia_selected')) {
-            if (materias > 0) {
-                $('#number_materias').addClass('trantition_materia_selected');
-                setTimeout(function () {
-                    $('#number_materias').removeClass('trantition_materia_selected');
-                }, 400);
-                $('#' + $(this).attr('id')).removeClass('materia_selected');
-
-                materias--;
-                $('#number_materias').text(materias + '/6 materias seleccionadas')
-            }
-        } else {
-            if (materias < 6) {
-                $('#number_materias').addClass('trantition_materia_selected');
-                setTimeout(function () {
-                    $('#number_materias').removeClass('trantition_materia_selected');
-                }, 400);
-                $('#' + $(this).attr('id')).addClass('materia_selected');
-                materias++;
-                $('#number_materias').text(materias + '/6 materias seleccionadas');
+                    materias--;
+                    $('#number_materias').text(materias + '/7 materias seleccionadas')
+                }
             } else {
-                swal.fire('Alerta', 'Ya ha seleccionado el numero maximo de materias', 'error');
+                if (materias < 7) {
+
+                    materias_selected.push($(this).attr('id'));
+
+                    $('#number_materias').addClass('trantition_materia_selected');
+                    setTimeout(function () {
+                        $('#number_materias').removeClass('trantition_materia_selected');
+                    }, 400);
+                    $('#' + $(this).attr('id')).addClass('materia_selected');
+                    materias++;
+                    $('#number_materias').text(materias + '/7 materias seleccionadas');
+                } else {
+                    swal.fire('Estimado estudiante:', 'Ya ha seleccionado el numero maximo de materias.', 'error');
+                }
             }
-        }
+
+        });
 
     });
+
 
 </script>

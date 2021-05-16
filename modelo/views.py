@@ -47,15 +47,17 @@ def render_flujograma(request, ci):
                 salto = False
                 for n, materiaH in enumerate(trimestre):
                     if materiaH != 1903 and 'FGE0000' in materiaF and 'FGE0000' in materiaH:
-                        trimestre[n] = 1903
-                        flujograma[materiaF][0] = 1
-                        salto = True
-                        break
+                        if materiaH.split('_')[1] == 'Good' or materiaH.split('_')[1] == 'Excellent':
+                            trimestre[n] = 1903
+                            flujograma[materiaF][0] = 1
+                            salto = True
+                            break
 
                     if materiaH != 1903 and materiaF == materiaH.split('_')[0]:
-                        flujograma[materiaF][0] = 1
-                        salto = True
-                        break
+                        if materiaH.split('_')[1] == 'Good' or materiaH.split('_')[1] == 'Excellent':
+                            flujograma[materiaF][0] = 1
+                            salto = True
+                            break
                 if salto:
                     break
 
