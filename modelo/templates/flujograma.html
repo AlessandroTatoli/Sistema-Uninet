@@ -62,6 +62,10 @@
 </style>
 <div class="table-responsive">
 
+    {% csrf_token %}
+    <h5 style="color: white; text-align: left">UNIVERSIDAD METROPOLITANA</h5>
+    <h5 style="color: white; text-align: left">FLUJOGRAMA DE {{ carrera }}</h5>
+    <h6 style="color: white">Períodos Académicos</h6>
     <table class="table table-bordered" style="table-layout: fixed;">
         <thead>
         <tr class="materia materia_head">
@@ -93,12 +97,18 @@
 
 </div>
 
-<div class="container-fluid d-flex justify-content-center">
-    <p id="number_materias">
+<div class="container-fluid d-flex justify-content-end" style="align-items: baseline; padding-right: 0;">
+    <p id="number_materias" style="flex: 1 0 auto; position: absolute; left: 43.5%; bottom: 2%;">
         0/7 materias seleccionadas
     </p>
+    <a id="predict" class="btn-get-started" style="margin-right: 0; margin-top: 0; padding: 10px 15px;">
+        Realizar Predicción
+    </a>
 </div>
 <script>
+
+
+    var materias_selected = [];
 
     $(document).ready(function () {
 
@@ -106,10 +116,11 @@
             var flujograma = {{ flujograma }};
         {% endautoescape %}
 
-        flujograma = Object.entries(flujograma)
         var aux = 0;
         var materias = 0;
-        var materias_selected = [];
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        flujograma = Object.entries(flujograma)
 
         while (aux != 5) {
             for (var i = aux; i < 60; i += 5) {
@@ -164,6 +175,39 @@
 
         });
 
+        $.ajaxSetup({
+            'headers': {
+                'X-CSRFToken': csrftoken,
+            }
+        });
+
+    });
+
+    $('#predict').on('click', function () {
+
+        if (materias_selected.length == 0) {
+            swal.fire('', 'No se han seleccionado materias a predecir', 'error');
+            return
+        }
+
+
+        swal.fire({
+            text: '¿Desea realizar la predicción con las materias seleccionadas?',
+            confirmButtonText: 'Predecir',
+            showCancelButton: true,
+            cancelButtonText: 'Volver',
+            icon: 'warning'
+        }).then(function (data) {
+            if (data.isConfirmed) {
+                loading();
+                $("#body-content").load('predict/' + {{ ci }}, {
+                    'materias': materias_selected
+                }, function () {
+                    loading(false);
+                });
+            }
+
+        });
     });
 
 

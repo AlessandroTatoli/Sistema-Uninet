@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 import json
+import numpy as np
+
+
+# from keras.models import load_model
 
 
 def index(request):
@@ -18,7 +22,8 @@ def render_flujograma(request, ci):
         try:
             historico = all_historicos[str(ci)]
         except:
-            return render(request, "home.html", {'error': 'No se ha encontrado el estudiante.'})
+            return render(request, "home.html",
+                          {'error': 'No se ha encontrado al estudiante en nuestra base de datos.'})
         fileH.close()
 
     # se obtiene el flujograma de las materias del estudiante
@@ -41,11 +46,11 @@ def render_flujograma(request, ci):
             fileN.close()
 
         # verificar materias que cursó el estudiante
-
         for materiaF in flujograma.keys():
             for trimestre in historico["Historico"]:
                 salto = False
                 for n, materiaH in enumerate(trimestre):
+                    # validacion para electivas
                     if materiaH != 1903 and 'FGE0000' in materiaF and 'FGE0000' in materiaH:
                         if materiaH.split('_')[1] == 'Good' or materiaH.split('_')[1] == 'Excellent':
                             trimestre[n] = 1903
@@ -53,6 +58,7 @@ def render_flujograma(request, ci):
                             salto = True
                             break
 
+                    # validacion para materias regulares
                     if materiaH != 1903 and materiaF == materiaH.split('_')[0]:
                         if materiaH.split('_')[1] == 'Good' or materiaH.split('_')[1] == 'Excellent':
                             flujograma[materiaF][0] = 1
@@ -63,36 +69,63 @@ def render_flujograma(request, ci):
 
     fileF.close()
 
-    flujogramaDic = [
-        {'Matematica General': [1, 'BTTTTT1'], 'Matemática Básica': [1, 'BTTTTT2'], 'Matemáticas I': [1, 'BTTTTT3'],
-         'Matemáticas II': [0, 'BTTTTT4'], 'Matemáticas III': [0, 'BTTTTT5'], 'Matemáticas IV': [0, 'BTTTTT6'],
-         'Ecuaciones Diferenciales': [0, 'BTTTTT7'], 'Matemáticas V': [0, 'BTTTTT8'],
-         'Iniciativa Emprendedora': [0, 'BTTTTT9'], 'Gestion Cadena de Suministros I': [0, 'BTTTTT10'],
-         'Gerencia Proyectos TIC': [0, 'BTTTTT11'], 'Proyecto de Ingeniería': [0, 'BTTTTT12']},
-        {'Lenguaje y Universalidad': [1, 'BTTTTT13'], 'Comprension de Venezuela': [1, 'BTTTTT14'],
-         'FGE I': [1, 'BTTTTT15'],
-         'Matemáticas Discretas': [1, 'BTTTTT16'], 'FGE II': [1, 'BTTTTT17'], 'Algebra Lineal': [1, 'BTTTTT18'],
-         'FGE III': [0, 'BTTTTT19'], 'Optimizacion I': [0, 'BTTTTT20'],
-         'Optimizacion II': [0, 'BTTTTT21'], 'Modelacion Sist. de Redes': [0, 'BTTTTT22'],
-         'Seguridad de la Informacion': [0, 'BTTTTT23'], 'Ingeniería Economica': [0, 'BTTTTT24']},
-        {'Matematica General': [1, 'BTTTTT25'], 'Matemática Básica': [1, 'BTTTTT26'], 'Matemáticas I': [1, 'BTTTTT27'],
-         'Matemáticas II': [1, 'BTTTTT28'], 'Matemáticas III': [0, 'BTTTTT29'], 'Matemáticas IV': [0, 'BTTTTT30'],
-         'Ecuaciones Diferenciales': [0, 'BTTTTT31'],
-         'Matemáticas V': [0, 'BTTTTT32'], 'Iniciativa Emprendedora': [0, 'BTTTTT33'],
-         'Gestion Cadena de Suministros I': [0, 'BTTTTT34'],
-         'Gerencia Proyectos TIC': [0, 'BTTTTT35'], 'Proyecto de Ingeniería': [0, 'BTTTTT36']},
-        {'Matematica General': [1, 'BTTTTT37'], 'Matemática Básica': [1, 'BTTTTT38'], 'Matemáticas I': [0, 'BTTTTT39'],
-         'Matemáticas II': [0, 'BTTTTT40'], 'Matemáticas III': [0, 'BTTTTT41'], 'Matemáticas IV': [0, 'BTTTTT42'],
-         'Ecuaciones Diferenciales': [0, 'BTTTTT43'],
-         'Matemáticas V': [0, 'BTTTTT44'], 'Iniciativa Emprendedora': [0, 'BTTTTT45'],
-         'Gestion Cadena de Suministros I': [0, 'BTTTTT46'],
-         'Gerencia Proyectos TIC': [0, 'BTTTTT47'], 'Proyecto de Ingeniería': [0, 'BTTTTT48']},
-        {'Matematica General': [1, 'BTTTTT49'], 'Matemática Básica': [1, 'BTTTTT50'], 'Matemáticas I': [0, 'BTTTTT51'],
-         'Matemáticas II': [0, 'BTTTTT52'], 'Matemáticas III': [0, 'BTTTTT53'], 'Matemáticas IV': [0, 'BTTTTT54'],
-         'Ecuaciones Diferenciales': [0, 'BTTTTT55'], 'Matemáticas V': [0, 'BTTTTT56'],
-         'Iniciativa Emprendedora': [0, 'BTTTTT57'],
-         'Gestion Cadena de Suministros I': [0, 'BTTTTT58'],
-         'Gerencia Proyectos TIC': [0, 'BTTTTT59'], 'Proyecto de Ingeniería': [0, 'BTTTTT60']}
-    ]
+    carrera = historico["Plan de Estudios"]
 
-    return render(request, "flujograma.html", {'flujograma': flujograma})
+    return render(request, "flujograma.html", {'flujograma': flujograma, 'carrera': carrera, 'ci': ci})
+
+
+def predecir(request, ci):
+    # validaciones iniciales
+    if request.method != 'POST':
+        return render(request, "home.html", {'error': 'Ha ocurrido un error inesperado (0).'})
+
+    materias_array = request.POST.getlist('materias[]')
+
+    if len(materias_array) == 0:
+        return render(request, "home.html", {'error': 'No se han introducido materias a predecir (1).'})
+
+    with open('./static/utils/students_validation.json', "r", encoding='utf8') as fileH:
+        all_historicos = json.load(fileH)
+        try:
+            historico = all_historicos[str(ci)]["Historico"]
+        except:
+            return render(request, "home.html",
+                          {'error': 'No se ha encontrado al estudiante en nuestra base de datos. (2)'})
+        fileH.close()
+
+    with open('./static/utils/vocab_to_int.json', "r", encoding='utf8') as fileHI:
+        vocab_to_int = json.load(fileHI)
+        fileHI.close()
+
+    # crear input historico con sus respectivos indices numericos
+    historico_int = np.zeros((1, 24, 21), dtype=int)
+    array_1903 = [1903, 1903, 1903, 1903, 1903, 1903, 1903, 1903, 1903, 1903, 1903, 1903, 1903, 1903, 1903, 1903, 1903,
+                  1903, 1903, 1903, 1903]
+
+    for i in range(24):
+        if i <= (len(historico) - 1):
+            for materia in range(0, len(historico[i])):
+                if historico[i][materia] != 1903:
+                    historico[i][materia] = vocab_to_int[historico[i][materia]]
+            historico_int[0][i] = historico[i]
+        else:
+            historico_int[0][i] = array_1903
+
+    # crear input target con sus respectivos indices numericos
+    with open('./static/utils/target_to_int.json', "r", encoding='utf8') as fileII:
+        target_to_int = json.load(fileII)
+        fileII.close()
+
+    target_int = np.zeros((1, 21), dtype=int)
+    for i in range(21):
+        if i <= (len(materias_array) - 1):
+            target_int[0][i] = target_to_int[materias_array[i]]
+        else:
+            target_int[0][i] = 0
+
+    print('Historico del estudiante')
+    print(historico_int)
+    print('Target del estudiante')
+    print(target_int)
+
+    return render(request, "home.html")
