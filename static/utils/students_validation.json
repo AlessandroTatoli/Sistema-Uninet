@@ -1577,8 +1577,82 @@
       ]
     ]
   },
-  "28074227": {
-    "Plan de Estudios": "MATEMÁTICAS INDUSTRIALES",
+  "280742271": {
+    "Plan de Estudios": "MATEMÁTICAS INDUSTRIALES-S",
+    "Historico": [
+      [
+        "FBPLI02_Failed",
+        "FGE0000_Good",
+        "FBPMM02_Good",
+        "FBPCE04_Excellent",
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903
+      ],
+      [
+        "FBPLI02_Good",
+        "FBTMM00_Good",
+        "FBTCE03_Good",
+        "FGE0000_Good",
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903
+      ],
+      [
+        "FBTHU01_Good",
+        "FBTMM01_Good",
+        "FBTCE04_Good",
+        "FBTIE02_Excellent",
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903,
+        1903
+      ]
+    ]
+  },
+  "280742272": {
+    "Plan de Estudios": "MATEMÁTICAS INDUSTRIALES-E",
     "Historico": [
       [
         "FBPLI02_Failed",
