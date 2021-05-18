@@ -387,6 +387,13 @@
         $('#table_' + $(this).attr('data-number')).addClass('table_selected');
         $('#table_' + $(this).attr('data-number')).text(parseInt($(this).attr('data-number')) + 1);
 
+        console.log()
+
+        if ($('#table_' + index_group).attr('id') == 'table_1' || $('#table_' + index_group).attr('id') == 'table_2') {
+            if (materias_groups[index_group].length == 0)
+                $('#table_' + index_group).text('+');
+        }
+
         index_group = $(this).attr('data-number');
         $('#number_materias').addClass('trantition_materia_selected');
         setTimeout(function () {
@@ -394,6 +401,7 @@
         }, 400);
         $('#number_materias').text(materias_groups[index_group].length + '/7 materias seleccionadas');
         console.log(materias_groups[index_group]);
+
 
         $("td").removeClass('materia_selected');
         $("td").each(function () {
@@ -408,41 +416,47 @@
     });
 
 
-    //    $('#predict').on('click', function () {
-    //
-    //        if (materias_selected.length == 0) {
-    //            swal.fire('', 'No se han seleccionado materias a predecir', 'error');
-    //            return
-    //        }
-    //
-    //
-    //        swal.fire({
-    //            text: '¿Desea realizar la predicción con las materias seleccionadas?',
-    //            confirmButtonText: 'Predecir',
-    //            showCancelButton: true,
-    //            cancelButtonText: 'Volver',
-    //            icon: 'warning'
-    //        }).then(function (data) {
-    //            if (data.isConfirmed) {
-    //
-    //                //corregir codigo de electivas
-    //                for (var i = 0; i < materias_selected.length; i++) {
-    //                    if (materias_selected[i].includes('FGE0000')) {
-    //                        materias_selected[i] = 'FGE0000'
-    //                    }
-    //                }
-    //
-    //
-    //                loading();
-    //                $("#body-content").load('predict/' + {{ ci }}, {
-    //                    'materias': materias_selected
-    //                }, function () {
-    //                    loading(false);
-    //                });
-    //            }
-    //
-    //        });
-    //    });
+    $('#predict').on('click', function () {
+
+        var no_mat = true;
+        for (var i = 0; i < materias_groups.length; i++) {
+            if (materias_groups[i].length != 0) {
+                no_mat = false;
+            }
+        }
+        if (no_mat) {
+            swal.fire('', 'No se han seleccionado materias a predecir en ningún grupo', 'error');
+            return
+        }
+
+
+        swal.fire({
+            text: '¿Desea realizar la predicción con los grupos de materias seleccionados?',
+            confirmButtonText: 'Predecir',
+            showCancelButton: true,
+            cancelButtonText: 'Volver',
+            icon: 'warning'
+        }).then(function (data) {
+            if (data.isConfirmed) {
+
+                //corregir codigo de electivas
+                for (var i = 0; i < materias_selected.length; i++) {
+                    if (materias_selected[i].includes('FGE0000')) {
+                        materias_selected[i] = 'FGE0000'
+                    }
+                }
+
+
+                loading();
+                $("#body-content").load('predict/' + {{ ci }}, {
+                    'materias': materias_selected
+                }, function () {
+                    loading(false);
+                });
+            }
+
+        });
+    });
 
 
 </script>
