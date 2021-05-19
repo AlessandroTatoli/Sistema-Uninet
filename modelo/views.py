@@ -223,3 +223,7 @@ def predecir(request, ci):
         print(target_int)
 
     return render(request, "home.html")
+
+
+def resultados(request):
+    return render(request, "resultados.html")

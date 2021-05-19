@@ -23,4 +23,5 @@ urlpatterns = [
     path('home/', home, name='home'),
     path('net/<int:ci>', render_flujograma, name='flujograma'),
     path('predict/<int:ci>', predecir, name='prediccion'),
+    path('resultados/', resultados, name='resultados'),
 ]
