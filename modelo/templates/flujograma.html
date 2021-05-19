@@ -440,16 +440,19 @@
             if (data.isConfirmed) {
 
                 //corregir codigo de electivas
-                for (var i = 0; i < materias_selected.length; i++) {
-                    if (materias_selected[i].includes('FGE0000')) {
-                        materias_selected[i] = 'FGE0000'
+                for (var i = 0; i < materias_groups.length; i++) {
+                    for (var j = 0; j < materias_groups[i].length; j++) {
+                        if (materias_groups[i].includes('FGE0000')) {
+                            materias_groups[i] = 'FGE0000'
+                        }
                     }
                 }
 
+                console.log(materias_groups)
 
                 loading();
                 $("#body-content").load('predict/' + {{ ci }}, {
-                    'materias': materias_selected
+                    'materias': materias_groups
                 }, function () {
                     loading(false);
                 });

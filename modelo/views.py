@@ -167,9 +167,14 @@ def predecir(request, ci):
     if request.method != 'POST':
         return render(request, "home.html", {'error': 'Ha ocurrido un error inesperado (0).'})
 
-    materias_array = request.POST.getlist('materias[]')
+    grupo_materias = []
+    hay_materias = False
+    for i in range(3):
+        grupo_materias.append(request.POST.getlist('materias[' + str(i) + '][]'))
+        if len(request.POST.getlist('materias[' + str(i) + '][]')) != 0:
+            hay_materias = True
 
-    if len(materias_array) == 0:
+    if not hay_materias:
         return render(request, "home.html", {'error': 'No se han introducido materias a predecir (1).'})
 
     with open('./static/utils/students_validation.json', "r", encoding='utf8') as fileH:
@@ -204,16 +209,17 @@ def predecir(request, ci):
         target_to_int = json.load(fileII)
         fileII.close()
 
-    target_int = np.zeros((1, 21), dtype=int)
-    for i in range(21):
-        if i <= (len(materias_array) - 1):
-            target_int[0][i] = target_to_int[materias_array[i]]
-        else:
-            target_int[0][i] = 0
-
     print('Historico del estudiante')
     print(historico_int)
-    print('Target del estudiante')
-    print(target_int)
+
+    for n, grupo in enumerate(grupo_materias):
+        target_int = np.zeros((1, 21), dtype=int)
+        for i in range(21):
+            if i <= (len(grupo) - 1):
+                target_int[0][i] = target_to_int[grupo[i]]
+            else:
+                target_int[0][i] = 0
+        print('Target del estudiante ' + str(n))
+        print(target_int)
 
     return render(request, "home.html")
