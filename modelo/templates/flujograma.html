@@ -442,8 +442,8 @@
                 //corregir codigo de electivas
                 for (var i = 0; i < materias_groups.length; i++) {
                     for (var j = 0; j < materias_groups[i].length; j++) {
-                        if (materias_groups[i].includes('FGE0000')) {
-                            materias_groups[i] = 'FGE0000'
+                        if (materias_groups[i][j].includes('FGE0000')) {
+                            materias_groups[i][j] = 'FGE0000'
                         }
                     }
                 }

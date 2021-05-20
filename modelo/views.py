@@ -212,15 +212,22 @@ def predecir(request, ci):
     print('Historico del estudiante')
     print(historico_int)
 
+    # cargar el modelo predictivo en el sistema
+    model = load_model('./static/utils/model.h5')
+
     for n, grupo in enumerate(grupo_materias):
-        target_int = np.zeros((1, 21), dtype=int)
-        for i in range(21):
-            if i <= (len(grupo) - 1):
-                target_int[0][i] = target_to_int[grupo[i]]
-            else:
-                target_int[0][i] = 0
-        print('Target del estudiante ' + str(n))
-        print(target_int)
+        if (len(grupo) != 0):
+            target_int = np.zeros((1, 21), dtype=int)
+            for i in range(21):
+                if i <= (len(grupo) - 1):
+                    target_int[0][i] = target_to_int[grupo[i]]
+                else:
+                    target_int[0][i] = 0
+            print('Target del estudiante ' + str(n))
+            print(target_int)
+
+            prediccion = model.predict([historico_int, target_int])
+            print(prediccion)
 
     return render(request, "home.html")
 
