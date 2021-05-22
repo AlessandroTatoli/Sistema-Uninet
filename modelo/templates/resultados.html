@@ -62,8 +62,9 @@
                 </ul>
             </div>
             <div style="border-right: 2px solid gray; margin-top: 6%; height: 50%; "></div>
-            <div class="col probabilidad" style="padding-top: 10%">
-                PORCENTAJE DE ÉXITO: 0%
+            <div class="col" style="padding-top: 10%; font-weight: normal;">
+                PORCENTAJE DE ÉXITO: <p style="font-style: italic; display: inline-block; font-weight: bold;"
+                                        class="probabilidad">0%</p>
             </div>
         </div>
     </div>
@@ -75,8 +76,9 @@
                 </ul>
             </div>
             <div style="border-right: 2px solid gray; margin-top: 6%; height: 50%; "></div>
-            <div class="col probabilidad" style="padding-top: 10%">
-                PORCENTAJE DE ÉXITO: 0%
+            <div class="col" style="padding-top: 10%; font-weight: normal;">
+                PORCENTAJE DE ÉXITO: <p style="font-style: italic; display: inline-block; font-weight: bold;"
+                                        class="probabilidad">0%</p>
             </div>
         </div>
     </div>
@@ -88,8 +90,9 @@
                 </ul>
             </div>
             <div style="border-right: 2px solid gray; margin-top: 6%; height: 50%; "></div>
-            <div class="col probabilidad" style="padding-top: 10%">
-                PORCENTAJE DE ÉXITO: 0%
+            <div class="col" style="padding-top: 10%; font-weight: normal;">
+                PORCENTAJE DE ÉXITO: <p style="font-style: italic; display: inline-block; font-weight: bold;"
+                                        class="probabilidad">0%</p>
             </div>
         </div>
     </div>
@@ -99,7 +102,7 @@
 
     $(document).ready(function () {
 
-        var grupos = [['Lenguaje y Universalidad', '56%'], [], []];
+        var grupos = [[], [], []];
 
         {% autoescape off %}
             grupos = {{ grupos }};
@@ -110,14 +113,16 @@
             if (grupos[i].length != 0) {
                 for (var j = 0; j < grupos[i].length; j++) {
                     if ((j + 1) != grupos[i].length) {
-                        $('#grupo' + (parseInt(i) + 1)).find('ul').append('<p style="margin-bottom: 0; font-style: italic">' + grupos[i][j] + '</p>')
+                        $('#grupo' + (parseInt(i) + 1)).find('ul').append('<p style="margin-bottom: 0; font-style: italic">' + grupos[i][j] + '</p>');
                     } else {
-                        $('#grupo' + (parseInt(i) + 1)).find('.probabilidad').text('PORCENTAJE DE ÉXITO: ' + grupos[i][j])
+                        var porcentaje = grupos[i][j] * 100;
+                        porcentaje = porcentaje.toFixed(2);
+                        $('#grupo' + (parseInt(i) + 1)).find('.probabilidad').text(porcentaje + '%');
                     }
                 }
             } else {
                 $('#grupo' + (parseInt(i) + 1)).html('SIN MATERIAS EN EL GRUPO ' + (parseInt(i) + 1));
-                $('#grupo' + (parseInt(i) + 1)).addClass('not_selected')
+                $('#grupo' + (parseInt(i) + 1)).addClass('not_selected');
             }
 
 

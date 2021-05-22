@@ -228,8 +228,32 @@ def predecir(request, ci):
 
             prediccion = model.predict([historico_int, target_int])
             print(prediccion)
+            grupo_materias[n].append(prediccion[0][0].item())
 
-    return render(request, "home.html")
+    # asignar nombre a las materias elegidas
+    with open('./static/utils/code_to_assign.json', "r", encoding='utf8') as fileN:
+        all_nombres = json.load(fileN)
+        for grupo in grupo_materias:
+            if (len(grupo) == 0):
+                continue
+
+            for n, materia in enumerate(grupo):
+                for codigo in all_nombres.keys():
+
+                    if (n + 1) == len(grupo):
+                        break
+
+                    if 'FGE0000' in materia:
+                        grupo[n] = 'ELECTIVA'
+                        break
+
+                    if materia == codigo:
+                        grupo[n] = all_nombres[codigo]
+                        break
+        fileN.close()
+
+    # return render(request, "home.html")
+    return render(request, "resultados.html", {'grupos': grupo_materias})
 
 
 def resultados(request):
