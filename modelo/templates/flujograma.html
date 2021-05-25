@@ -207,10 +207,12 @@
 <script>
     var index_group = 0;
     var materias_groups = [[], [], []]
+    var materias_values = [{}, {}, {}]
+    var materias_op = false;
+    var materias_select = {}
 
     $(document).ready(function () {
 
-        var materias_op = false;
 
         {% autoescape off %}
             var flujograma = {{ flujograma }};
@@ -218,10 +220,8 @@
             // validacion para idiomas
             {% if materias_op %}
                 materias_op = Object.entries({{ materias_op }})
-                var materias_select = {}
                 for (var i = 0; i < materias_op.length; i++) {
-                    if (materias_op[i][1][0] == 0)
-                        materias_select[materias_op[i][0]] = materias_op[i][1][1]
+                    materias_select[materias_op[i][0]] = materias_op[i][1][1]
                 }
             {% endif %}
         {% endautoescape %}
@@ -239,7 +239,7 @@
 
                     // validacion idiomas
                     if (flujograma[i][0].includes('BPELI')) {
-                        $('#row' + row).append('<td id="' + flujograma[i][0] + '" name="materia_op" data-val="" class="materia_porver"> MATERIA DE IDIOMAS </td>')
+                        $('#row' + row).append('<td id="' + flujograma[i][0] + '" name="materia_op" class="materia_porver"> MATERIA DE IDIOMAS </td>')
                     } else {
                         $('#row' + row).append('<td class="materia_no_existe"> - </td>')
                     }
@@ -279,20 +279,10 @@
                     // idiomas modernos
                     if ($(this).attr('name') == 'materia_op') {
 
-                        console.log($('#' + id).attr('data-val'))
-                        var index_mat = materias_groups[index_group].indexOf($('#' + id).attr('data-val'));
+                        var index_mat = materias_groups[index_group].indexOf(id);
                         materias_groups[index_group].splice(index_mat, 1);
-
-                        materias_select = {}
-                        for (var i = 0; i < materias_op.length; i++) {
-                            if (materias_op[i][0] == $(this).attr('data-val'))
-                                materias_op[i][1][0] = 0
-
-                            if (materias_op[i][1][0] == 0)
-                                materias_select[materias_op[i][0]] = materias_op[i][1][1]
-                        }
-                        $(this).attr('data-val', '')
-                        $('#' + id).text('MATERIA DE IDIOMAS')
+                        delete materias_values[index_group][id];
+                        $('#' + id).text('MATERIA DE IDIOMAS');
 
                     } else {
                         var index_mat = materias_groups[index_group].indexOf($(this).attr('id'));
@@ -307,7 +297,10 @@
 
                     $('#number_materias').text(materias_groups[index_group].length + '/7 materias seleccionadas')
                 }
-                console.log(materias_groups[index_group])
+
+                console.log(materias_groups)
+                console.log(materias_values)
+
             } else {
                 if (materias_groups[index_group].length < 7) {
 
@@ -328,18 +321,17 @@
                             }
                         }).then(function (data) {
                             if (data.isConfirmed) {
-                                materias_groups[index_group].push(data.value);
-                                materias_select = {}
+
                                 for (var i = 0; i < materias_op.length; i++) {
                                     if (materias_op[i][0] == data.value) {
                                         $('#' + id).text(materias_op[i][1][1])
-                                        materias_op[i][1][0] = 1
                                     }
-
-                                    if (materias_op[i][1][0] == 0)
-                                        materias_select[materias_op[i][0]] = materias_op[i][1][1]
                                 }
-                                $('#' + id).attr('data-val', data.value)
+                                materias_values[index_group][id] = data.value;
+                                materias_groups[index_group].push(id)
+
+                                console.log(materias_groups)
+                                console.log(materias_values)
 
                                 $('#number_materias').addClass('trantition_materia_selected');
                                 setTimeout(function () {
@@ -349,7 +341,6 @@
                                 $('#number_materias').text(materias_groups[index_group].length + '/7 materias seleccionadas');
 
                             }
-                            console.log(materias_groups[index_group])
                         });
                     } else {
                         materias_groups[index_group].push(id);
@@ -360,14 +351,15 @@
                         }, 400);
                         $(this).addClass('materia_selected');
                         $('#number_materias').text(materias_groups[index_group].length + '/7 materias seleccionadas');
-                        console.log(materias_groups[index_group])
+
+                        console.log(materias_groups)
+                        console.log(materias_values)
                     }
 
                 } else {
                     swal.fire('Estimado estudiante:', 'Ya ha seleccionado el numero maximo de materias.', 'error');
                 }
             }
-
         });
 
         $.ajaxSetup({
@@ -387,8 +379,6 @@
         $('#table_' + $(this).attr('data-number')).addClass('table_selected');
         $('#table_' + $(this).attr('data-number')).text(parseInt($(this).attr('data-number')) + 1);
 
-        console.log()
-
         if ($('#table_' + index_group).attr('id') == 'table_1' || $('#table_' + index_group).attr('id') == 'table_2') {
             if (materias_groups[index_group].length == 0)
                 $('#table_' + index_group).text('+');
@@ -402,16 +392,31 @@
         $('#number_materias').text(materias_groups[index_group].length + '/7 materias seleccionadas');
         console.log(materias_groups[index_group]);
 
-
         $("td").removeClass('materia_selected');
         $("td").each(function () {
+
+            if ($(this).attr('name') == 'materia_op') {
+                $(this).text('MATERIA DE IDIOMAS');
+            }
+
             for (var i = 0; i < materias_groups[index_group].length; i++) {
+
                 if ($(this).attr("id") == materias_groups[index_group][i]) {
+
+                    if (materias_values[index_group][$(this).attr("id")] != undefined) {
+                        $(this).text(materias_select[materias_values[index_group][$(this).attr("id")]]);
+                    }
+
                     $(this).addClass('materia_selected');
                     break
                 }
+
+
             }
         });
+
+        console.log(materias_groups)
+        console.log(materias_values)
 
     });
 
@@ -444,6 +449,10 @@
                     for (var j = 0; j < materias_groups[i].length; j++) {
                         if (materias_groups[i][j].includes('FGE0000')) {
                             materias_groups[i][j] = 'FGE0000'
+                            continue
+                        }
+                        if (materias_groups[i][j].includes('BPELIX')) {
+                            materias_groups[i][j] = materias_values[i][materias_groups[i][j]]
                         }
                     }
                 }

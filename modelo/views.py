@@ -15,7 +15,8 @@ def home(request):
 
 def render_flujograma(request, ci):
     # se obtiene el historico del estudiante
-    with open('./static/utils/students_validation.json', "r", encoding='utf8') as fileH:
+    # with open('./static/utils/students_validation.json', "r", encoding='utf8') as fileH:
+    with open('./static/utils/test.json', "r", encoding='utf8') as fileH:
         all_historicos = json.load(fileH)
         try:
             historico = all_historicos[str(ci)]
@@ -177,7 +178,8 @@ def predecir(request, ci):
     if not hay_materias:
         return render(request, "home.html", {'error': 'No se han introducido materias a predecir (1).'})
 
-    with open('./static/utils/students_validation.json', "r", encoding='utf8') as fileH:
+    # with open('./static/utils/students_validation.json', "r", encoding='utf8') as fileH:
+    with open('./static/utils/test.json', "r", encoding='utf8') as fileH:
         all_historicos = json.load(fileH)
         try:
             historico = all_historicos[str(ci)]["Historico"]
@@ -196,7 +198,14 @@ def predecir(request, ci):
                   1903, 1903, 1903, 1903]
 
     for i in range(24):
+
         if i <= (len(historico) - 1):
+
+            # arreglo para model2
+            cant_materias = 21 - len(historico[i])
+            for j in range(cant_materias):
+                historico[i].append(1903)
+
             for materia in range(0, len(historico[i])):
                 if historico[i][materia] != 1903:
                     historico[i][materia] = vocab_to_int[historico[i][materia]]
@@ -213,7 +222,8 @@ def predecir(request, ci):
     print(historico_int)
 
     # cargar el modelo predictivo en el sistema
-    model = load_model('./static/utils/model.h5')
+    # model = load_model('./static/utils/model.h5')
+    model = load_model('./static/utils/model2.h5')
 
     for n, grupo in enumerate(grupo_materias):
         if (len(grupo) != 0):
