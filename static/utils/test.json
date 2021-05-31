@@ -10,6 +10,12 @@
         "FBTMM00_Excellent"
       ],
       [
+        "FBTCE04_Good",
+        "FBTIE03_Good",
+        "FBTMM01_Excellent",
+        "FBTHU02_Excellent"
+      ],
+      [
         "BPTMI01_Failed",
         "BPTQI21_Good",
         "FBTSP03_Good",
@@ -47,6 +53,17 @@
         "FBTMM02_Excellent"
       ],
       [
+        "FBTMM00_Excellent",
+        "FBTHU01_Excellent",
+        "FBTCE03_Excellent",
+        "FBTIE02_Excellent",
+        "FBTIN04_Excellent"
+      ],
+      [
+        "FBTMM01_Excellent",
+        "FBTIN05_Excellent"
+      ],
+      [
         "FBTSP03_Excellent",
         "FGE0000_Excellent",
         "BPTMI01_Excellent",
@@ -73,7 +90,9 @@
     "Plan de Estudios": "DERECHO",
     "Historico": [
       [
-        "FBPMM02_Good",
+        "FBTIN04_Excellent"
+      ],
+      [
         "FBTHU01_Good",
         "FBTIE02_Excellent",
         "FBTIN05_Excellent",
@@ -83,7 +102,8 @@
         "FBTMM00_Failed",
         "FBTHU02_Good",
         "FBTIE03_Good",
-        "FBTCE03_Excellent"
+        "FBTCE03_Excellent",
+        "FBTCE04_Good"
       ],
       [
         "BPTEJ14_Good",
@@ -93,9 +113,14 @@
       ],
       [
         "BPTEP01_Good",
+        "FBTEJ03_Good",
         "BPTEJ00_Excellent",
         "BPTEJ11_Excellent",
         "BPTEJ01_Excellent"
+      ],
+      [
+        "BPTEJ03_Good",
+        "FPTEJ02_Good"
       ],
       [
         "BPTEJ04_Good",
@@ -124,49 +149,54 @@
       ]
     ]
   },
-  "27670383": {
+  "27449329": {
     "Plan de Estudios": "IDIOMAS MODERNOS",
     "Historico": [
       [
-        "FBPLI02_Good",
-        "FBPMM02_Good",
-        "FBPCE04_Good",
-        "FGE0000_Excellent"
-      ],
-      [
         "FBTMM00_Good",
-        "FBTMA02_Good",
-        "FBTMM01_Good",
-        "FBTHU02_Excellent",
-        "FBTHU01_Excellent"
+        "FBTIE02_Excellent",
+        "FBTHU01_Excellent",
+        "FGE0000_Excellent",
+        "FBTCE03_Excellent"
       ],
       [
-        "FBTMM01_Failed",
-        "FBTCE04_Good",
-        "FBTHU02_Excellent",
-        "FBTIE03_Excellent"
+        "FBTIN04_Excellent",
+        "FBTHU02_Good",
+        "FBTMM02_Excellent",
+        "FBTIE03_Good",
+        "FBTCE04_Excellent"
       ],
       [
-        "BPTBC21_Failed",
-        "FBTMM01_Good",
-        "BPTIE45_Good",
+        "FBTID03_Excellent",
+        "BPTLI22_Excellent",
+        "FBTIN05_Excellent",
+        "BPELI31_Excellent",
+        "BPTLI11_Excellent",
+        "FGS0000_Excellent"
+      ],
+      [
+        "BPTMM20_Excellent",
+        "BPELI32_Excellent",
+        "BPTLI01_Excellent",
+        "BPTLI12_Excellent",
+        "FGS0000_Excellent",
         "FGE0000_Excellent"
       ],
       [
-        "BPTBC21_Failed",
-        "BPTIE52_Good",
-        "FBPIN01_Excellent"
+        "BPTLI71_Excellent",
+        "BPELI33_Excellent",
+        "BPTLI02_Excellent",
+        "FGE0000_Excellent",
+        "FGS0000_Excellent",
+        "BPTLI13_Excellent"
       ],
       [
-        "FBTMA01_Failed",
-        "FBPIN02_Good",
-        "BPTBC21_Good"
-      ],
-      [
-        "FBPIN03_Failed",
-        "FBTMA01_Good",
-        "BPTBC22_Good",
-        "BPTGP46_Excellent"
+        "BPELI34_Excellent",
+        "FPTLI05_Excellent",
+        "BPTLI72_Excellent",
+        "BPTLI03_Excellent",
+        "BPTLI14_Excellent",
+        "FGS0000_Excellent"
       ]
     ]
   },
@@ -174,45 +204,33 @@
     "Plan de Estudios": "INGENIERÍA ELÉCTRICA",
     "Historico": [
       [
-        "FBPLI02_Good",
-        "FBPMM02_Good",
-        "FBPCE04_Good",
-        "FGE0000_Excellent"
-      ],
-      [
+        "FBTHU01_Failed",
+        "FBPIN03_Good",
+        "FBTIE02_Good",
         "FBTMM00_Good",
-        "FBTMA02_Good",
-        "FBTMM01_Good",
-        "FBTHU02_Excellent",
-        "FBTHU01_Excellent"
+        "FBTCE03_Excellent",
+        "FGE0000_Excellent"
       ],
       [
         "FBTMM01_Failed",
-        "FBTCE04_Good",
-        "FBTHU02_Excellent",
-        "FBTIE03_Excellent"
-      ],
-      [
-        "BPTBC21_Failed",
-        "FBTMM01_Good",
-        "BPTIE45_Good",
+        "FBTHU01_Failed",
+        "FBTIE03_Good",
+        "FBTCE04_Excellent",
         "FGE0000_Excellent"
       ],
       [
-        "BPTBC21_Failed",
-        "BPTIE52_Good",
-        "FBPIN01_Excellent"
+        "FBTMM01_Good",
+        "FBTIN04_Good",
+        "FBTHU01_Excellent",
+        "FGE0000_Excellent",
+        "FBTSP03_Excellent"
       ],
       [
-        "FBTMA01_Failed",
-        "FBPIN02_Good",
-        "BPTBC21_Good"
-      ],
-      [
-        "FBPIN03_Failed",
-        "FBTMA01_Good",
-        "BPTBC22_Good",
-        "BPTGP46_Excellent"
+        "BPTMI01_Failed",
+        "FBTHU02_Good",
+        "BPTQI21_Good",
+        "BPTPI07_Excellent",
+        "FGE0000_Excellent"
       ]
     ]
   },
@@ -230,23 +248,24 @@
         "FBPLI01_Failed",
         "FBPMM02_Good",
         "FBPCE04_Good",
+        "FBTMA02_Failed",
         "FGE0000_Good"
       ],
       [
-        "FBTMA02_Failed",
-        "FBTMM00_Good",
+        "FBTMM00_Failed",
         "FGE0000_Good",
-        "FBTMA02_Good"
+        "FBTMA02_Good",
+        "FBTIE02_Good",
+        "FBTCE03_Good"
       ],
       [
-        "FBTMM00_Failed",
+        "FBTMM00_Good",
         "FBTCE04_Good",
         "FBPLI02_Good"
       ],
       [
         "FBTCC03_Good",
         "FBTHU01_Good",
-        "FBTMM00_Good",
         "BPTCC01_Good",
         "FBTIE03_Good"
       ],
@@ -320,6 +339,11 @@
         "BPTIE45_Good",
         "BPTBC21_Excellent",
         "FGE0000_Excellent"
+      ],
+      [
+        "BPTBC22_Excellent",
+        "BPTMA21_Good",
+        "BPTAK11_Excellent"
       ],
       [
         "BPTMA22_Good",
@@ -464,7 +488,9 @@
       ],
       [
         "BPTFI01_Failed",
-        "FGE0000_Good"
+        "FGE0000_Good",
+        "BPTMI02_Good",
+        "BPTFI01_Good"
       ],
       [
         "BPTMI03_Good",
@@ -500,96 +526,33 @@
       ]
     ]
   },
-  "24313572": {
+  "26590600": {
     "Plan de Estudios": "EDUCACIÓN",
     "Historico": [
       [
-        "BPTAK01_Good",
-        "FBTIN05_Good",
-        "BPTMA22_Excellent",
-        "FPTMK20_Good",
-        "FPTMK08_Good"
-      ],
-      [
-        "FBPCE04_Good",
-        "FBPLI02_Good",
-        "FBPIN03_Good"
-      ],
-      [
-        "FBTIE01_Good",
-        "FPDMK03_Good",
-        "FPTFN23_Excellent",
-        "FBTIN05_Excellent",
-        "FGE0000_Good"
-      ],
-      [
-        "FBTCE04_Good",
-        "FBTMM02_Good",
+        "FBTHU01_Good",
+        "FBTIE02_Good",
+        "FBTMM00_Good",
         "FBTIN04_Good",
-        "FBTIE03_Good",
-        "FBTHU02_Excellent"
+        "FBTCE03_Excellent"
       ],
       [
-        "BPTLI11_Good",
-        "BPTCE08_Good",
-        "BPTCE09_Excellent",
-        "BPTCE36_Excellent"
-      ],
-      [
-        "BPELI31_Excellent",
-        "FBTID03_Good",
-        "BPTLI12_Excellent"
-      ],
-      [
-        "FBTCE01_Good",
-        "BPTCE14_Excellent",
-        "BPTCC40_Excellent",
-        "BPTCE02_Excellent",
-        "BPTLI13_Good"
-      ],
-      [
-        "BPTCC41_Excellent",
-        "BPTCE07_Excellent",
-        "BPTCE04_Excellent",
-        "BPTCE05_Excellent"
-      ],
-      [
-        "BPTDI01_Good",
-        "BPTCE08_Excellent",
-        "FBTCE02_Excellent",
-        "FPTCE11_Excellent",
-        "FPTCC09_Excellent"
-      ],
-      [
-        "BPTCE17_Excellent",
-        "BPTCE15_Excellent",
-        "BPTCC19_Excellent",
-        "BPTCE03_Excellent",
-        "BPTCC44_Excellent",
-        "BPTCE16_Excellent"
-      ],
-      [
-        "FPTCE01_Good",
-        "BPTCE06_Excellent",
-        "FPTGP12_Excellent",
-        "FPTGP13_Excellent",
-        "FPTGP61_Excellent"
-      ],
-      [
-        "FBTIE01_Excellent",
-        "FPTDI01_Excellent",
-        "BPTDI01-2_Good"
-      ],
-      [
-        "FPTCE22_Good",
-        "FPTCE13_Excellent",
-        "FPTCE12_Excellent",
-        "FBTCE11_Excellent",
-        "FGE0000_Excellent"
+        "FBTIN05_Good",
+        "FBTMM02_Good",
+        "FBTIE03_Excellent",
+        "FBTHU02_Excellent",
+        "FBTCE04_Excellent"
       ],
       [
         "BPTMM30_Good",
-        "FPTED50_Good"
+        "BPTCE14_Excellent",
+        "FBTCE01_Excellent",
+        "BPTCE03_Excellent",
+        "BPTCE02_Excellent",
+        ""
+      ],
+      [
+        "FGE0000_Excellent"
       ]
     ]
   },
@@ -654,16 +617,24 @@
       [
         "BPTMI01_Excellent",
         "BPTPI07_Excellent",
-        "FPTIE67_Excellent",
+        "FBTSP03_Excellent",
         "FGE0000_Excellent",
-        "FPTMI21_Excellent",
-        "FGE0000_Excellent"
+        "BPTQI21_Excellent",
+        "FGE0000_Excellent",
+        "FBTSP03_Good "
       ],
       [
         "BPTQI22_Good",
         "BPTFI01_Excellent",
         "BPTMI02_Excellent",
         "BPTPI01_Excellent"
+      ],
+      [
+        "BPTPI02_Good",
+        "BPTSP07_Excellent",
+        "BPTEN02_Excellent",
+        "BPTFI02_Excellent",
+        "BPTMI03_Excellent"
       ],
       [
         "BPTFI03_Good",
@@ -716,12 +687,16 @@
         "FBTMM01_Good",
         "FBTHU02_Good",
         "FBTMM00_Good",
-        "BPTAK11_Good"
+        "BPTAK11_Good",
+        "FBTCE04_Good"
       ],
       [
         "BPTEJ35_Failed",
         "FBPIN03_Good",
-        "FBTAK03_Good"
+        "FBTAK03_Good",
+        "FBTIN04_Good",
+        "FBTIE03_Good",
+        "BPTBC21_Good"
       ],
       [
         "FBTMA01_Failed",

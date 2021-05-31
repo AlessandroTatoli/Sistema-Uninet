@@ -178,6 +178,7 @@ def predecir(request, ci):
     if not hay_materias:
         return render(request, "home.html", {'error': 'No se han introducido materias a predecir (1).'})
 
+    # cargar el historico del estudiante
     # with open('./static/utils/students_validation.json', "r", encoding='utf8') as fileH:
     with open('./static/utils/test.json', "r", encoding='utf8') as fileH:
         all_historicos = json.load(fileH)
@@ -188,24 +189,24 @@ def predecir(request, ci):
                           {'error': 'No se ha encontrado al estudiante en nuestra base de datos. (2)'})
         fileH.close()
 
+    # cargar el json materia a int
     with open('./static/utils/vocab_to_int.json', "r", encoding='utf8') as fileHI:
         vocab_to_int = json.load(fileHI)
         fileHI.close()
 
     # crear input historico con sus respectivos indices numericos
-    historico_int = np.zeros((1, 24, 21), dtype=int)
-    array_1903 = [1903, 1903, 1903, 1903, 1903, 1903, 1903, 1903, 1903, 1903, 1903, 1903, 1903, 1903, 1903, 1903, 1903,
-                  1903, 1903, 1903, 1903]
+    historico_int = np.zeros((1, 24, 7), dtype=int)
+    array_1903 = [1903, 1903, 1903, 1903, 1903, 1903, 1903]
 
     for i in range(24):
 
         if i <= (len(historico) - 1):
-
-            # arreglo para model2
-            cant_materias = 21 - len(historico[i])
+            # arreglo 7 materias por trimestre
+            cant_materias = 7 - len(historico[i])
             for j in range(cant_materias):
                 historico[i].append(1903)
 
+            # asignar indice numerico dependiendo de la materia
             for materia in range(0, len(historico[i])):
                 if historico[i][materia] != 1903:
                     historico[i][materia] = vocab_to_int[historico[i][materia]]
@@ -213,32 +214,56 @@ def predecir(request, ci):
         else:
             historico_int[0][i] = array_1903
 
-    # crear input target con sus respectivos indices numericos
-    with open('./static/utils/target_to_int.json', "r", encoding='utf8') as fileII:
-        target_to_int = json.load(fileII)
-        fileII.close()
-
     print('Historico del estudiante')
     print(historico_int)
 
+    # crear input target con sus respectivos indices numericos
+    # with open('./static/utils/target_to_int.json', "r", encoding='utf8') as fileII:
+    #     target_to_int = json.load(fileII)
+    #     fileII.close()
+
     # cargar el modelo predictivo en el sistema
-    # model = load_model('./static/utils/model.h5')
-    model = load_model('./static/utils/model2.h5')
+    model = load_model('./static/utils/model.h5')
 
+    # crear input target con 1s y 0s en sus respectivas posiciones
     for n, grupo in enumerate(grupo_materias):
-        if (len(grupo) != 0):
-            target_int = np.zeros((1, 21), dtype=int)
-            for i in range(21):
-                if i <= (len(grupo) - 1):
-                    target_int[0][i] = target_to_int[grupo[i]]
-                else:
-                    target_int[0][i] = 0
-            print('Target del estudiante ' + str(n))
-            print(target_int)
+        target_input = np.zeros((1, 466), dtype=int)
+        target_int = []
+        target_dict = {}
+        target_file = open('./static/utils/only_assigns.txt')
+        for line in target_file:
+            target_int.append(line.split('\n')[0])
+        target_file.close()
 
-            prediccion = model.predict([historico_int, target_int])
+        target_int = sorted(target_int)
+
+        for materia in target_int:
+            target_dict[materia] = 0
+
+        if (len(grupo) != 0):
+            for materia in grupo:
+                target_dict[materia] = 1
+
+            for m, value in enumerate(target_dict.values()):
+                target_input[0][m] = value
+
+            print('Target del estudiante ' + str(n))
+            print(target_input)
+
+            prediccion = model.predict([historico_int, target_input])
             print(prediccion)
             grupo_materias[n].append(prediccion[0][0].item())
+
+    # for n, grupo in enumerate(grupo_materias):
+    #     if (len(grupo) != 0):
+    #         target_int = np.zeros((1, 21), dtype=int)
+    #         for i in range(21):
+    #             if i <= (len(grupo) - 1):
+    #                 target_int[0][i] = target_to_int[grupo[i]]
+    #             else:
+    #                 target_int[0][i] = 0
+    #         print('Target del estudiante ' + str(n))
+    #         print(target_int)
 
     # asignar nombre a las materias elegidas
     with open('./static/utils/code_to_assign.json', "r", encoding='utf8') as fileN:
