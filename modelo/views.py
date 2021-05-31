@@ -16,7 +16,8 @@ def home(request):
 def render_flujograma(request, ci):
     # se obtiene el historico del estudiante
     # with open('./static/utils/students_validation.json', "r", encoding='utf8') as fileH:
-    with open('./static/utils/test.json', "r", encoding='utf8') as fileH:
+    # with open('./static/utils/test.json', "r", encoding='utf8') as fileH:
+    with open('./static/utils/validation.json', "r", encoding='utf8') as fileH:
         all_historicos = json.load(fileH)
         try:
             historico = all_historicos[str(ci)]
@@ -180,7 +181,8 @@ def predecir(request, ci):
 
     # cargar el historico del estudiante
     # with open('./static/utils/students_validation.json', "r", encoding='utf8') as fileH:
-    with open('./static/utils/test.json', "r", encoding='utf8') as fileH:
+    # with open('./static/utils/test.json', "r", encoding='utf8') as fileH:
+    with open('./static/utils/validation.json', "r", encoding='utf8') as fileH:
         all_historicos = json.load(fileH)
         try:
             historico = all_historicos[str(ci)]["Historico"]
