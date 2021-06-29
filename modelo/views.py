@@ -15,7 +15,6 @@ def home(request):
 
 def render_flujograma(request, ci):
     # se obtiene el historico del estudiante
-    # with open('./static/utils/students_validation.json', "r", encoding='utf8') as fileH:
     # with open('./static/utils/test.json', "r", encoding='utf8') as fileH:
     with open('./static/utils/validation.json', "r", encoding='utf8') as fileH:
         all_historicos = json.load(fileH)
@@ -180,7 +179,6 @@ def predecir(request, ci):
         return render(request, "home.html", {'error': 'No se han introducido materias a predecir (1).'})
 
     # cargar el historico del estudiante
-    # with open('./static/utils/students_validation.json', "r", encoding='utf8') as fileH:
     # with open('./static/utils/test.json', "r", encoding='utf8') as fileH:
     with open('./static/utils/validation.json', "r", encoding='utf8') as fileH:
         all_historicos = json.load(fileH)
@@ -219,13 +217,8 @@ def predecir(request, ci):
     print('Historico del estudiante')
     print(historico_int)
 
-    # crear input target con sus respectivos indices numericos
-    # with open('./static/utils/target_to_int.json', "r", encoding='utf8') as fileII:
-    #     target_to_int = json.load(fileII)
-    #     fileII.close()
-
     # cargar el modelo predictivo en el sistema
-    model = load_model('./static/utils/model.h5')
+    model = load_model('./static/utils/model_final.h5')
 
     # crear input target con 1s y 0s en sus respectivas posiciones
     for n, grupo in enumerate(grupo_materias):
@@ -255,17 +248,6 @@ def predecir(request, ci):
             prediccion = model.predict([historico_int, target_input])
             print(prediccion)
             grupo_materias[n].append(prediccion[0][0].item())
-
-    # for n, grupo in enumerate(grupo_materias):
-    #     if (len(grupo) != 0):
-    #         target_int = np.zeros((1, 21), dtype=int)
-    #         for i in range(21):
-    #             if i <= (len(grupo) - 1):
-    #                 target_int[0][i] = target_to_int[grupo[i]]
-    #             else:
-    #                 target_int[0][i] = 0
-    #         print('Target del estudiante ' + str(n))
-    #         print(target_int)
 
     # asignar nombre a las materias elegidas
     with open('./static/utils/code_to_assign.json', "r", encoding='utf8') as fileN:
